@@ -50,7 +50,7 @@ const lastInfo = randlast();
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
 	executablePath: chromePaths.chrome,
         args: [
             '--no-sandbox',
