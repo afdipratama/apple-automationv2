@@ -11,6 +11,7 @@ const password = "Anjing404!";
 var {
     random,randlast
 } = require('./names.js');
+const { get } = require('http');
 
 var ascii = fs.readFileSync('ascii.txt',{encoding: 'utf-8'});
 console.log(ascii);
@@ -50,8 +51,8 @@ const lastInfo = randlast();
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: true,
-	executablePath: chromePaths.chrome,
+        headless: false,
+	    executablePath: chromePaths.chrome,
         args: [
             '--no-sandbox',
             '--disable-notifications'
@@ -69,8 +70,11 @@ const lastInfo = randlast();
 
     const pageTwo = await browser.newPage()
 
-    await pageTwo.goto('https://www.1secmail.com/?login=' + emailInfo + nomor + "&domain=bheps.com")
+    await pageTwo.goto('https://temp-mail.to/')
     await sleep (4000)
+    await pageTwo.click('.mailbox > .mail-container > .message-inbox > .cta-refresh > a')
+    await sleep(3000)
+    await pageTwo.click('.mail-head > .nop > li > .copytrg > .icon-copy')
     await page.bringToFront()
     
 
@@ -96,8 +100,9 @@ const lastInfo = randlast();
     await sleep(1000)
     await page.waitForSelector('#email')
     await page.click('#email')
-    await page.keyboard.type(emailInfo + nomor + "@bheps.com")
-
+    await page.keyboard.down('ControlLeft')
+    await page.keyboard.press('V')
+    await page.keyboard.up('ControlLeft')
     await sleep(1000)
     await page.waitForSelector('#acAccountPassword')
     await page.click('#acAccountPassword')
@@ -115,39 +120,33 @@ const lastInfo = randlast();
     await pageTwo.evaluate(() => {
         location.reload(true)
      })
-    await sleep(4000)
-
-    await pageTwo.waitForSelector('table > tbody > tr > td > a')
-    await pageTwo.click('table > tbody > tr > td > a')
-
-    const defUrl = await pageTwo.url()
-    await sleep (1000 , console.log("=> Membuka Inbox Email : " + defUrl))
-
-    const getOtp = () => new Promise((resolve,reject) => {
-        fetch(defUrl, {
-            method: 'GET',
-            headers: {
-                'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36'
-            }
-    })
+    await sleep(2000)
+    await pageTwo.click('.mailbox > .mail-container > .message-inbox > .cta-refresh > a')
+    await sleep(2000)
+    await pageTwo.waitForSelector('.os-padding > .os-viewport > .os-content > .inbox-list > .inbox-one')
+    await pageTwo.click('.os-padding > .os-viewport > .os-content > .inbox-list > .inbox-one')
+     await pageTwo.keyboard.down('ControlLeft')
+    await pageTwo.keyboard.press('C')
+    await pageTwo.keyboard.up('ControlLeft')
     
-        .then (res => res.text())
-        .then(result => {
-            const $ = cheerio.load(result);
-            const menu = $('#main > div.container > div > div > p > b').text();
-            resolve("=> OTP apple is : " + menu )
-            
-        })
-        .catch(err => reject(err))
     
-    });
-                    const detailOtp = await getOtp()
-                    console.log(detailOtp)
-                    const trim = detailOtp.replace(/\D/g,'');
-                    await page.bringToFront()
-                    await page.waitForSelector('#secretCode')
-                    await page.click('#secretCode')
-                    await page.keyboard.type(trim)
+    await sleep(3000)   
+    const elementHandle = await pageTwo.$('iframe[class="bodyHTML"');
+    const frame = await elementHandle.contentFrame();
+
+    const click = await frame.$('#main > div.container > div > div > p > b');
+    await click.click({clickCount:3})
+    await sleep(1000)
+    await pageTwo.keyboard.down('ControlLeft')
+    await pageTwo.keyboard.press('C')
+    await pageTwo.keyboard.up('ControlLeft')
+    await sleep(1000)
+    await page.bringToFront()
+    await page.click('#secretCode')
+    await page.keyboard.down('ControlLeft')
+    await page.keyboard.press('V')
+    await page.keyboard.up('ControlLeft')
+
                     await page.waitForSelector('#app > div > div > div > main > div.account-base__content > div > form > div.form-buttons > button.web-button-form.form-button.web-button-form--primary.form-buttons__continue.form-buttons__button')
                     await page.click('#app > div > div > div > main > div.account-base__content > div > form > div.form-buttons > button.web-button-form.form-button.web-button-form--primary.form-buttons__continue.form-buttons__button')
                     await sleep(2000, console.log("=> Mengisi data field address & billing info... "))
@@ -160,12 +159,6 @@ const lastInfo = randlast();
                     await pageThree.waitForSelector('#ccpN')
                     await pageThree.click('#ccpN')
                     await pageThree.keyboard.type("543897")
-                    
-                    // await page.waitForSelector('.masthead > .container > .text-center > #console > center')
-                    // await page.click('.masthead > .container > .text-center > #console > center')
-                    // await pageThree.waitForSelector('input[name="ccghm"')
-                    // await pageThree.click({ clickCount: 3 })
-                    // await pageThree.keyboard.type("1")
 
                     await pageThree.waitForSelector('#generar')
                     await pageThree.click('#generar')
@@ -178,7 +171,8 @@ const lastInfo = randlast();
                     // await pageThree.mouse.click(160, 300, {delay: 1000, button: 'left'});
                     await sleep(3000)
                     await pageThree.close(sleep(2000))
-                    await pageTwo.close(sleep(1000))
+                    await pageTwo.bringToFront()
+                    // await pageTwo.close(sleep(1000))
                     await page.click('input[id=creditCardNumber]')
                     await page.keyboard.down('ControlLeft')
                     await page.keyboard.press('V')
@@ -227,14 +221,54 @@ const lastInfo = randlast();
                     await page.waitForSelector('#phoneOfficeNumber')
                     await page.click('#phoneOfficeNumber')
                     await page.keyboard.type(JSON.stringify(acak));
-                    await sleep(4000)
+                    await sleep(2000)
+                    
                     await page.waitForSelector('#app > div > div > div > main > div.account-base__content > div > form > div.form-buttons.create-billing__navigation-buttons > button.web-button-form.form-button.web-button-form--primary.form-buttons__continue.form-buttons__button')
                     await page.click('#app > div > div > div > main > div.account-base__content > div > form > div.form-buttons.create-billing__navigation-buttons > button.web-button-form.form-button.web-button-form--primary.form-buttons__continue.form-buttons__button')
-                    await sleep(10000) 
-                    // await page.goto('https://appleid.apple.com/')
-                    
-                    
+                    await sleep(4000)
+                    await sleep(4000)
+                    await sleep(4000)
+                    await sleep(4000) 
+                    await page.keyboard.press("Tab");
+                    await page.keyboard.press("Tab");
+                    await page.keyboard.press("Tab");
+                    await page.keyboard.press("Tab");
+                    await page.keyboard.press("Space");
+                    await sleep(5000)
+                    await sleep(5000)
+                    await page.click('span[class="web-button__text"')
+                    await sleep(1000)
+                    await page.goto('https://appleid.apple.com/sign-in')
+                    await sleep (2000)
+                    await pageTwo.click('.mail-head > .nop > li > .copytrg > .icon-copy')
+                    await sleep(2000)
+                    const appleUname = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame = await appleUname.contentFrame();
 
-
+                    const field1 = await getFrame.$('#account_name_text_field');
+                    const field2 = await getFrame.$('#password_text_field');
+                    const button = await getFrame.$('#sign-in');
+                    await field1.click({clickCount:2});
+                    await page.keyboard.down('ControlLeft')
+                    await page.keyboard.press('V')
+                    await page.keyboard.up('ControlLeft')
+                    await button.click({clickCount:3});
+                    await sleep(4000)
+                    await field2.type(password)
+                    await sleep(3000)
+                    await button.click({clickCount:3});
+                    await sleep(5000)
+                    await pageTwo.waitForSelector('.os-padding > .os-viewport > .os-content > .inbox-list > .inbox-one')
+                    await pageTwo.click('.os-padding > .os-viewport > .os-content > .inbox-list > .inbox-one')
+                    await pageTwo.keyboard.down('ControlLeft')
+                    await pageTwo.keyboard.press('C')
+                    await pageTwo.keyboard.up('ControlLeft')
+                    await sleep(3000)
+                    await page.keyboard.down('ControlLeft')
+                    await page.keyboard.press('V')
+                    await page.keyboard.up('ControlLeft')
+		     
+		    // EMAIL SIGN SAMPLE
+                    // walton_wiegand6@delivrmail.com
+                    // Anjing404#!
             })();
-
