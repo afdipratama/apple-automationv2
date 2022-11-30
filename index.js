@@ -306,20 +306,28 @@ const lastInfo = randlast();
                     await page.keyboard.down('ControlLeft')
                     await page.keyboard.press('V')
                     await page.keyboard.up('ControlLeft')
-                    await sleep(19000)
-                    const hintVcc = await page.waitForSelector('#repairFrame');
-                    const field3 = await hintVcc.$('input[class="form-textbox form-textbox-text"');
-                    const button2 = await hintVcc.$('button[type="submit"')
+                    await sleep(17000)
+                    // VCC VERIV
+                    const appleUname1 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame1 = await appleUname1.contentFrame();
+
+                    const fieldVcc = await getFrame1.$('iframe[id="repairFrame"');
+                    const frameVcc = await fieldVcc.contentFrame();
+                    const button2 = await frameVcc.$('button[type="submit"')
+                    const enterVcc = await frameVcc.$('input[class="form-textbox form-textbox-text"')
+                    
+                    await sleep(2000)
+                    await enterVcc.click({clickCount:2});
                     // let anchorElem1 = await field3.$("a[class='email']");
-                    await field3.click()
+                    // await field3.waitForSelector();
                     await sleep(1000)
-                    await field3.type(vcc)
-                    await sleep(1000)
+                    await enterVcc2.type(vcc)
+                    await sleep(2000)
                     await button2.click({clickCount: 2})
                     await sleep(10000)
                     // HINT 1
-                    const hint1 = await page.waitForSelector('#repairFrame');
-                    const fieldHint1 = await hint1.$('select[class="form-dropdown"');
+                    // const hint1 = await page.waitForSelector('#repairFrame');
+                    const fieldHint1 = await frameVcc.$('select[class="form-dropdown"');
                     await fieldHint1.click();
                     await sleep(1000)
                     await fieldHint1.press('ArrowDown');
