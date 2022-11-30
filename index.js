@@ -126,7 +126,7 @@ const lastInfo = randlast();
     
     await sleep(1000, console.log("==> Membuat akun Apple : " + value + "|" + password))       
     await sleep(6000)
-    fs.appendFile("akun.txt", value + "|" + password + "\n" , function (err) {
+    fs.appendFile("akun.txt", value + "|" + password , function (err) {
 
         if (err) return console.log(err);
       });
@@ -307,22 +307,19 @@ const lastInfo = randlast();
                     await page.keyboard.press('V')
                     await page.keyboard.up('ControlLeft')
                     await sleep(19000)
-                    const appleUname3 = await page.$('iframe[id="repairFrame"');
-                    const getFrame3 = await appleUname3.contentFrame();
-                    const field3 = await getFrame3.$('input[class="form-textbox form-textbox-text"');
-                    const button2 = await getFrame3.$('button[type="submit"')
+                    const hintVcc = await page.waitForSelector('#repairFrame');
+                    const field3 = await hintVcc.$('input[class="form-textbox form-textbox-text"');
+                    const button2 = await hintVcc.$('button[type="submit"')
                     // let anchorElem1 = await field3.$("a[class='email']");
-                    let link1 = field3.attr("id"); 
-                    await link1.click()
+                    await field3.click()
                     await sleep(1000)
-                    await link1.type(vcc)
+                    await field3.type(vcc)
                     await sleep(1000)
                     await button2.click({clickCount: 2})
                     await sleep(10000)
                     // HINT 1
-                    const hint1 = await page.$('iframe[id="repairFrame"');
-                    const getHint1 = await hint1.contentFrame();
-                    const fieldHint1 = await getHint1.$('select[class="form-dropdown"');
+                    const hint1 = await page.waitForSelector('#repairFrame');
+                    const fieldHint1 = await hint1.$('select[class="form-dropdown"');
                     await fieldHint1.click();
                     await sleep(1000)
                     await fieldHint1.press('ArrowDown');
@@ -357,6 +354,8 @@ const lastInfo = randlast();
                     const buttonHint3 = await getHint1.$('button[type="submit"')
                     await buttonHint3.click({clickCount:2})
                     await sleep(5000)
+                    const buttonHint4 = await getHint1.$('button[type="submit"')
+                    await buttonHint4.click({clickCount:2})
 
                     // donny.lockman77@delivrmail.com
                     // walton_wiegand6@delivrmail.com
