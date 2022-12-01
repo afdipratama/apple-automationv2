@@ -312,7 +312,7 @@ const lastInfo = randlast();
                     const button2 = await frameVcc.$('button[type="submit"')
                     const enterVcc = await frameVcc.$('input[class="form-textbox form-textbox-text"')
                     
-                    await sleep(2000)
+                    await sleep(5000)
                     await enterVcc.click({clickCount:2});
                     // let anchorElem1 = await field3.$("a[class='email']");
                     // await field3.waitForSelector();
