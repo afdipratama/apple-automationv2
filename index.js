@@ -126,7 +126,7 @@ const lastInfo = randlast();
     
     await sleep(1000, console.log("==> Membuat akun Apple : " + value + "|" + password))       
     await sleep(6000)
-    fs.appendFile("akun.txt", value + "|" + password , function (err) {
+    fs.appendFile("akun.txt", value + "|" + password + "\n" , function (err) {
 
         if (err) return console.log(err);
       });
@@ -254,12 +254,12 @@ const lastInfo = randlast();
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Space");
-                    await sleep(5000)
+                    await sleep(7100)
                     await page.click('span[class="web-button__text"')
                     await sleep(5000 , console.log("==> Berhasil Membuat Akun Apple.."))
                     await sleep(1000)
                     await page.goto('https://appleid.apple.com/sign-in')
-                    await console.log('==> Mencoba Membuat Hint Verification')
+                    await console.log('==> Mencoba load URL : https://appleid.apple.com/ ')
                     await pageTwo.click('.mail-head > .nop > li > .copytrg > .icon-copy')
                     
                     await page.evaluate(() => {
@@ -321,50 +321,117 @@ const lastInfo = randlast();
                     // let anchorElem1 = await field3.$("a[class='email']");
                     // await field3.waitForSelector();
                     await sleep(1000)
-                    await enterVcc2.type(vcc)
+                    await enterVcc.type(vcc)
                     await sleep(2000)
                     await button2.click({clickCount: 2})
-                    await sleep(10000)
+                    await sleep(7000,console.log('==> Mencoba Membuat Hint Verification'))
+                    
                     // HINT 1
                     // const hint1 = await page.waitForSelector('#repairFrame');
-                    const fieldHint1 = await frameVcc.$('select[class="form-dropdown"');
-                    await fieldHint1.click();
+                    const appleUname2 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame2 = await appleUname2.contentFrame();
+
+                    const fieldVcc2 = await getFrame2.$('iframe[id="repairFrame"');
+                    const getHint1 = await fieldVcc2.contentFrame();
+
+                    const fieldHint1 = await getHint1.$('select[class="form-dropdown form-dropdown-selectnone"');
+                    
+                    const buttonHint1 = await getHint1.$('button[type="submit"')
+                    
                     await sleep(1000)
+                    await fieldHint1.click({clickCount:2});
                     await fieldHint1.press('ArrowDown');
                     await fieldHint1.press('ArrowDown');
                     await fieldHint1.press('Enter');
-                    const fieldHint2 = await getHint1.$('input[class="form-textbox"')
+                    await sleep(4000)
+                    const appleUname3 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame3 = await appleUname3.contentFrame();
+
+                    const fieldhint0 = await getFrame3.$('iframe[id="repairFrame"');
+                    const getHint0 = await fieldhint0.contentFrame();
+
+                    const fieldHint2 = await getHint0.$('input[id="131"')
+                    await sleep(1000)
                     await fieldHint2.click({clickCount:2})
-                    await fieldHint2.type('Mory')
-                    const buttonHint1 = await getHint1.$('button[type="submit"')
-                    await buttonHint1.click({clickCount:2})
-                    // HINT 2
+                    await sleep(1000)
+                    await fieldHint2.type('Hafiz')
                     await sleep(2000)
-                    const fieldHint3 = await getHint1.$('select[class="form-dropdown"')
-                    await fieldHint3.press('ArrowDown');
+                    await buttonHint1.click({clickCount:2})
+
+
+                    // HINT 2
+                    await sleep(5000)
+                    const appleUname4 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame4 = await appleUname4.contentFrame();
+
+                    const mainHint = await getFrame4.$('iframe[id="repairFrame"');
+                    const getHint2 = await mainHint.contentFrame();
+
+                    const fieldHint3 = await getHint2.$('select[class="form-dropdown form-dropdown-selectnone"');
+                    
+                    
+                    
+                    await sleep(2000)
+                    await fieldHint3.click()
                     await fieldHint3.press('ArrowDown');
                     await fieldHint3.press('Enter');
-                    const fieldHint4 = await getHint1.$('input[class="form-textbox"')
+                    await sleep(2000)
+                    const appleUname5 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame5 = await appleUname5.contentFrame();
+
+                    const mainHint1 = await getFrame5.$('iframe[id="repairFrame"');
+                    const getHint3 = await mainHint1.contentFrame();
+
+                    const fieldHint4 = await getHint3.$('input[id="136"')
+                    await sleep(2000)
+                    const buttonHint2 = await getHint2.$('button[type="submit"')
                     await fieldHint4.click({clickCount:2})
                     await fieldHint4.type('Tidur')
-                    const buttonHint2 = await getHint1.$('button[type="submit"')
+                    await sleep(2000)
                     await buttonHint2.click({clickCount:2})
                     // HINT 3
                     
                     await sleep(2000)
-                    const fieldHint5 = await getHint1.$('select[class="form-dropdown"')
+
+                    const appleUname6 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame6 = await appleUname6.contentFrame();
+
+                    const mainHint2 = await getFrame6.$('iframe[id="repairFrame"');
+                    const getHint4 = await mainHint2.contentFrame();
+
+                    const fieldHint5 = await getHint2.$('select[class="form-dropdown form-dropdown-selectnone"');
+                  
+                    
+                    await sleep(2000)
+                    const buttonHint3 = await getHint4.$('button[type="submit"')
+                    
                     await fieldHint5.press('ArrowDown');
                     await fieldHint5.press('ArrowDown');
                     await fieldHint5.press('Enter');
-                    const fieldHint6 = await getHint1.$('input[class="form-textbox"')
+                    await fieldHint5.press('Enter');
+                    await sleep(4300)
+                    const appleUname8 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame8 = await appleUname8.contentFrame();
+
+                    const mainHint4 = await getFrame8.$('iframe[id="repairFrame"');
+                    const getHint6 = await mainHint4.contentFrame();
+                    const fieldHint6 = await getHint6.$('input[id="143"')
+                    await sleep(1000)
                     await fieldHint6.click({clickCount:2})
                     await fieldHint6.type('Monyong')
-                    const buttonHint3 = await getHint1.$('button[type="submit"')
+                    await sleep(2000)
                     await buttonHint3.click({clickCount:2})
                     await sleep(5000)
-                    const buttonHint4 = await getHint1.$('button[type="submit"')
-                    await buttonHint4.click({clickCount:2})
+                    const appleUname7 = await page.$('iframe[name="aid-auth-widget"');
+                    const getFrame7 = await appleUname7.contentFrame();
 
+                    const mainHint3 = await getFrame7.$('iframe[id="repairFrame"');
+                    const getHint5 = await mainHint3.contentFrame();
+
+                    const buttonHint4 = await getHint5.$('button[type="submit"')
+                    await buttonHint4.click({clickCount:2})
+                    await sleep(4000)
+                    await page.goto('https://appleid.apple.com/account/manage')
                     // donny.lockman77@delivrmail.com
                     // walton_wiegand6@delivrmail.com
                     // Anjing404#!
