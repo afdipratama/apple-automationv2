@@ -253,7 +253,7 @@ const lastInfo = randlast();
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Space");
-                    await sleep(7100)
+                    await sleep(7400)
                     await page.click('span[class="web-button__text"')
                     await sleep(5000 , console.log("==> Berhasil Membuat Akun Apple.."))
                     await sleep(1000)
