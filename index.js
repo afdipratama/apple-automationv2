@@ -125,10 +125,7 @@ const lastInfo = randlast();
     
     await sleep(1000, console.log("==> Membuat akun Apple : " + value + "|" + password))       
     await sleep(6000)
-    fs.appendFile("akun.txt", value + "|" + password + "\n" , function (err) {
 
-        if (err) return console.log(err);
-      });
     await pageTwo.evaluate(() => {
         location.reload(true)
      })
@@ -253,7 +250,7 @@ const lastInfo = randlast();
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Tab");
                     await page.keyboard.press("Space");
-                    await sleep(7400)
+                    await sleep(7100)
                     await page.click('span[class="web-button__text"')
                     await sleep(5000 , console.log("==> Berhasil Membuat Akun Apple.."))
                     await sleep(1000)
@@ -429,8 +426,11 @@ const lastInfo = randlast();
 
                     const buttonHint4 = await getHint5.$('button[type="submit"')
                     await buttonHint4.click({clickCount:2})
+                    fs.appendFile("akun.txt", value + "|" + password + "\n" , function (err) {
+
+                        if (err) return console.log(err);
+                      });
                     await console.log('==> Berhasil menyimpan akun di folder ( akun.txt ) ')
-                    // await sleep(4000)
+                
                     // await page.goto('https://appleid.apple.com/account/manage')
 
-            })();
