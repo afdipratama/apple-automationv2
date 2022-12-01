@@ -49,7 +49,6 @@ puppeteer.use(AdblockerPlugin({
 const emailInfo = random();
 const lastInfo = randlast();
 
-
 (async () => {
     const browser = await puppeteer.launch({
         headless: false,
@@ -430,9 +429,8 @@ const lastInfo = randlast();
 
                     const buttonHint4 = await getHint5.$('button[type="submit"')
                     await buttonHint4.click({clickCount:2})
-                    await sleep(4000)
-                    await page.goto('https://appleid.apple.com/account/manage')
-                    // donny.lockman77@delivrmail.com
-                    // walton_wiegand6@delivrmail.com
-                    // Anjing404#!
+                    await console.log('==> Berhasil menyimpan akun di folder ( akun.txt ) ')
+                    // await sleep(4000)
+                    // await page.goto('https://appleid.apple.com/account/manage')
+
             })();
